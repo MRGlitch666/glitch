@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HavenRay - Blog & News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            color: white;
+            padding: 1rem 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00c6ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00c6ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('/api/placeholder/1200/400') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 5%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Articles Section */
+        .articles {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-category {
+            color: #00c6ff;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .article-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #00c6ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .sidebar-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .popular-posts {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .popular-post {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
+        }
+
+        .popular-post-image {
+            width: 80px;
+            height: 80px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .popular-post-content h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .popular-post-content p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">HavenRay</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#blog">Blog</a>
+                <a href="#news">News</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to HavenRay</h1>
+            <p>Your source for insightful blogs and latest news</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <section class="articles">
+            <article class="article-card">
+                <div class="article-image">
+                    <img src="ai.png" alt="Article 1" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="article-content">
+                    <div class="article-category">Technology</div>
+                    <h2 class="article-title">The Future of Artificial Intelligence</h2>
+                    <p class="article-excerpt">Explore the latest developments in AI and how they're shaping our future. From machine learning to neural networks, discover the technologies that are revolutionizing industries.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image">
+                    <img src="md.png" alt="Article 2" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="article-content">
+                    <div class="article-category">Lifestyle</div>
+                    <h2 class="article-title">Mindful Living in a Digital Age</h2>
+                    <p class="article-excerpt">Learn how to maintain balance and wellness in an increasingly connected world. Tips and strategies for digital detox and mindful technology use.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+        </section>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Popular Posts</h2>
+                <div class="popular-posts">
+                    <div class="popular-post">
+                        <div class="popular-post-image">
+                            <img src="/api/placeholder/80/80" alt="Popular 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="popular-post-content">
+                            <h3>The Rise of Sustainable Fashion</h3>
+                            <p>2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="popular-post">
+                        <div class="popular-post-image">
+                            <img src="/api/placeholder/80/80" alt="Popular 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="popular-post-content">
+                            <h3>Remote Work Revolution</h3>
+                            <p>4 days ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Categories</h2>
+                <ul style="list-style: none;">
+                    <li><a href="#" style="color: #333; text-decoration: none; display: block; padding: 0.5rem 0;">Technology</a></li>
+                    <li><a href="#" style="color: #333; text-decoration: none; display: block; padding: 0.5rem 0;">Lifestyle</a></li>
+                    <li><a href="#" style="color: #333; text-decoration: none; display: block; padding: 0.5rem 0;">Travel</a></li>
+                    <li><a href="#" style="color: #333; text-decoration: none; display: block; padding: 0.5rem 0;">Business</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <h2>HavenRay</h2>
+            <p>Stay informed, stay inspired</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <p>&copy; 2024 HavenRay. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
