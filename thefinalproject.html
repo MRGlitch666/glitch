@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2030 News Hub</title>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --neon-blue: #00f7ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, var(--dark-bg), #1a1a1a);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .neon-border {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            animation: borderFlow 2s linear infinite;
+        }
+
+        @keyframes borderFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .header {
+            padding: 1rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            background: var(--glass-bg);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+
+        .news-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 300px;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timestamp {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .trending {
+            padding: 1.5rem;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .trending-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .admin-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2rem;
+            z-index: 1000;
+            display: none;
+            min-width: 400px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .ai-summary {
+            padding: 1rem;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header glass neon-border">
+        <nav class="nav-container">
+            <div class="logo">NEXUS NEWS</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link" onclick="filterNews('all')">Global</a></li>
+                <li><a href="#" class="nav-link" onclick="filterNews('tech')">Tech</a></li>
+                <li><a href="#" class="nav-link" onclick="filterNews('science')">Science</a></li>
+                <li><a href="#" class="nav-link" onclick="filterNews('crypto')">Crypto</a></li>
+                <li><a href="#" onclick="showAdminLogin()">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main id="newsContent">
+            <!-- News content will be populated here -->
+        </main>
+
+        <aside class="trending glass">
+            <h2>Trending Now</h2>
+            <div id="trendingNews"></div>
+        </aside>
+    </div>
+
+    <div class="admin-panel glass" id="adminLogin">
+        <h2>Admin Access</h2>
+        <input type="password" id="adminPassword" placeholder="Password">
+        <button onclick="login()">Authenticate</button>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = 'admin2030';
+        let isAdmin = false;
+        let currentFilter = 'all';
+
+        function showAdminLogin() {
+            document.getElementById('adminLogin').style.display = 'block';
+        }
+
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                document.getElementById('adminLogin').innerHTML = `
+                    <h2>Create Article</h2>
+                    <input type="text" id="postTitle" placeholder="Headline">
+                    <select id="postCategory">
+                        <option value="tech">Technology</option>
+                        <option value="science">Science</option>
+                        <option value="crypto">Crypto</option>
+                    </select>
+                    <textarea id="postContent" rows="6" placeholder="Article content"></textarea>
+                    <button onclick="createPost()">Publish</button>
+                `;
+            }
+        }
+
+        function createPost() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const category = document.getElementById('postCategory').value;
+            const date = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const aiSummary = `AI Analysis: This article discusses ${category} developments with potential global impact.`;
+            
+            const post = { title, content, category, date, aiSummary, views: 0 };
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            posts.unshift(post);
+            localStorage.setItem('posts', JSON.stringify(posts));
+
+            updateDisplay();
+            document.getElementById('adminLogin').style.display = 'none';
+        }
+
+        function filterNews(category) {
+            currentFilter = category;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            const filteredPosts = currentFilter === 'all' 
+                ? posts 
+                : posts.filter(post => post.category === currentFilter);
+
+            document.getElementById('newsContent').innerHTML = filteredPosts.map(post => `
+                <article class="news-card glass">
+                    <div class="news-image"></div>
+                    <span class="category">${post.category}</span>
+                    <h2>${post.title}</h2>
+                    <p class="timestamp">${post.date}</p>
+                    <p>${post.content}</p>
+                    <div class="ai-summary">${post.aiSummary}</div>
+                </article>
+            `).join('');
+
+            const trending = [...posts]
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 5);
+
+            document.getElementById('trendingNews').innerHTML = trending.map(post => `
+                <div class="trending-item">
+                    <h3>${post.title}</h3>
+                    <p class="timestamp">${post.category} • ${post.date}</p>
+                </div>
+            `).join('');
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>
